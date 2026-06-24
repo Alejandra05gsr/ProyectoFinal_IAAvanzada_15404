@@ -1,0 +1,32 @@
+tree("Root")
+    fallback
+        tree "TFlee"
+        tree "THide"
+        tree "TMakeMess"
+        tree "TWalk"
+
+
+
+tree("TFlee")
+    sequence
+        IsPlayerTooClose
+        Flee
+
+tree("THide")
+    sequence
+        HasObject
+        FindHidingSpot
+        MoveToHideSpot
+
+tree("TMakeMess")
+    sequence
+        FindOrderedShelf
+        TakeObject
+        MoveToAnotherShelf
+        DropObject
+
+
+tree("TWalk")
+    sequence
+        ChoosePatrolPoint
+        Patrol

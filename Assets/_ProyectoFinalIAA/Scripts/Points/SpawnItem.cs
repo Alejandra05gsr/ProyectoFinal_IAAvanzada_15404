@@ -6,11 +6,12 @@ public class SpawnItem : MonoBehaviour
     public GameObject[] items;
     int itemIndex;
     public Transform spawnerItem;
+    bool isInSpawnRange = false;
 
     [Header("Timer")]
     public float actualTime;
     float spawnTime = 5f;
-    bool canSpawn = true;
+    public bool canSpawn = true;
 
 
 
@@ -18,21 +19,15 @@ public class SpawnItem : MonoBehaviour
     void Start()
     {
         canSpawn = true;
-        actualTime = 0f;
+        actualTime = 5f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!canSpawn)
-        {
-            actualTime += Time.deltaTime;
-            if (actualTime >= spawnTime)
-            {
-                canSpawn = true;
-                actualTime = 0f;
-            }
-        }
+       TimerSpawn();
+        SpawnItemInScene();
+
     }
 
     void ChooseOneItem()
@@ -40,16 +35,46 @@ public class SpawnItem : MonoBehaviour
         itemIndex = Random.Range(0, items.Length);
     }
 
-    public void SpawnItemInScene()
+    void TimerSpawn()
     {
-        if (Input.GetKeyDown(KeyCode.E) && canSpawn)
+        if (!canSpawn)
         {
-            ChooseOneItem();
-            Instantiate(items[itemIndex], spawnerItem.position, Quaternion.identity);
-            canSpawn = false;
+            actualTime += Time.deltaTime;
+            if (actualTime >= spawnTime)
+            {
+                actualTime = spawnTime;
+                canSpawn = true;
+            }
         }
     }
 
 
+    public void SpawnItemInScene()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && canSpawn && isInSpawnRange)
+        {
+            Debug.Log("Spawn Item");
+            ChooseOneItem();
+            Instantiate(items[itemIndex], spawnerItem.position, Quaternion.identity);
+            actualTime = 0f;
+            canSpawn = false;
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("SpawnRange"))
+        {
+            isInSpawnRange = true;
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("SpawnRange"))
+        {
+            isInSpawnRange = false;
+        }
+    }
 
 }

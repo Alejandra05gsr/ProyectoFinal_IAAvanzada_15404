@@ -1,0 +1,26 @@
+tree("Root")
+    fallback
+        tree "TFlee"
+        tree "TEscape"
+        tree "TSteal"
+        tree "TWalk"
+
+tree("TFlee")
+    sequence
+        IsPlayerTooClose
+        Flee
+
+tree("TEscape")
+    sequence
+        HasStolenItem
+        MoveToExit
+
+tree("TSteal")
+    sequence
+        FindProduct
+        StealProduct
+
+tree("TWalk")
+    sequence
+        ChoosePatrolPoint
+        Patrol

@@ -1,0 +1,20 @@
+tree("Root")
+    fallback
+        tree "TInterruptPlayer"
+        tree "TChasePlayer"
+        tree "TPatrol"
+
+tree("TInterruptPlayer")
+    sequence
+        IsPlayerVeryClose
+        StopPlayer
+
+tree("TChasePlayer")
+    sequence
+        IsPlayerInRange
+        ChasePlayer
+
+tree("TPatrol")
+    sequence
+        ChoosePatrolPoint
+        Patrol

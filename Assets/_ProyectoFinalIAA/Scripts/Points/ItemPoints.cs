@@ -23,8 +23,8 @@ public class ItemPoints : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Box"))
         {
-            ui.UpdatePoints(pointsValue);
-            Destroy(collision.gameObject);
+            //ui.UpdatePoints(pointsValue);
+            Destroy(this);
         }
     }
 
