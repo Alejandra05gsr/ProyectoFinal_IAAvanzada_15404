@@ -605,7 +605,6 @@ GameObject:
   m_Component:
   - component: {fileID: 698543882817825}
   - component: {fileID: 910740416334722091}
-  - component: {fileID: 5040598176539175699}
   - component: {fileID: 5216908570484671039}
   - component: {fileID: 156769615869794183}
   - component: {fileID: 8549531556742092733}
@@ -656,19 +655,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5040598176539175699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6469385354841265543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7209018e2498f2643811faf045ab314b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MovementController
-  speed: 3
 --- !u!114 &5216908570484671039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,9 +669,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BTMomController
   player: {fileID: 0}
   detectionRange: 10
-  chaseRange: 5
-  patrolRange: 15
-  arrivalDistance: 0.5
+  stopRange: 5
+  patrolPoints: []
   agent: {fileID: 8549531556742092733}
 --- !u!114 &156769615869794183
 MonoBehaviour:

@@ -1,0 +1,44 @@
+using Panda;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class PatrolController : MonoBehaviour
+{
+    [Header("Patrol")]
+    public Transform[] patrolPoints;
+    int currentPatrolIndex = 0;
+
+    public NavMeshAgent agent;
+
+
+    void Start()
+    {
+        Patrol();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Patrol();
+    }
+
+
+    void ChoosePatrolPoint()
+    {
+        currentPatrolIndex = Random.Range(0, patrolPoints.Length);
+    }
+
+
+
+    void Patrol()
+    {
+        agent.SetDestination(patrolPoints[currentPatrolIndex].position);
+        float distance = Vector3.Distance(transform.position, patrolPoints[currentPatrolIndex].position);
+
+        if (distance <= 1f)
+        {
+            Invoke("ChoosePatrolPoint", 2.0f);
+        }
+    }
+
+}

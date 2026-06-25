@@ -2,25 +2,30 @@ tree("Root")
     fallback
         tree "TFlee"
         tree "TEscape"
+        tree "THide"
         tree "TSteal"
-        tree "TWalk"
+
 
 tree("TFlee")
     sequence
-        IsPlayerTooClose
-        Flee
+        IsScared
+        FleeToExit
 
 tree("TEscape")
     sequence
-        HasStolenItem
-        MoveToExit
+        ShouldEscape
+        HasItem
+        Escape
+
+tree("THide")
+    sequence
+        ShouldHide
+        Hide
 
 tree("TSteal")
     sequence
-        FindProduct
-        StealProduct
+        ShouldSteal
+        HasNotItem
+        Steal
 
-tree("TWalk")
-    sequence
-        ChoosePatrolPoint
-        Patrol
+

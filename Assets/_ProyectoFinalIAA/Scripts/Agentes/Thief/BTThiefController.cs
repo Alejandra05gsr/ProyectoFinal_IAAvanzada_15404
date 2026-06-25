@@ -4,107 +4,125 @@ using UnityEngine.AI;
 
 public class BTThiefController : MonoBehaviour
 {
-    [Header("Flee")]
-    public Transform player;
-    public float detectionRange = 10f;
-    public float fleeRange = 5f;
-
-    [Header("Flee")]
-    Vector3 patrolPoint;
-    public float patrolRange = 15f;
-    public float arrivalDistance = 0.5f;
-    private bool hasPatrolPoint = false;
+    
     public NavMeshAgent agent;
+    public FuzzyRiskController fuzzySystem;
+    public UI ui;
 
-    private MovementController movement;
+    [Header("Transforms")]
+    public Transform player;
+    public Transform exitPoint;
+    public Transform hideSpot;
+    public Transform productPoint;
 
 
+    public float panicDistance = 3.5f; 
+    public float arrivalDistance = 1.0f;
 
-    void Start()
+    public int removePoints = -10; 
+    public int addPoints = 10; 
+
+
+    [Task]
+    bool IsScared()
     {
-        movement = this.GetComponent<MovementController>();
+        // Pánico inmediato si el jugador está excesivamente cerca
+        return Vector3.Distance(transform.position, player.position) < panicDistance;
+    }
+
+
+    [Task]
+    bool ShouldEscape()
+    {
+        return fuzzySystem.currentDecision == FuzzyRiskController.ThiefDecision.Escape;
     }
 
     [Task]
-    bool IsPlayerTooClose() //Checar
+    bool ShouldHide()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        if (distanceToPlayer < fleeRange)
+        return fuzzySystem.currentDecision == FuzzyRiskController.ThiefDecision.Hide;
+    }
+
+    [Task]
+    bool ShouldSteal()
+    {
+        return fuzzySystem.currentDecision == FuzzyRiskController.ThiefDecision.Steal;
+    }
+
+    [Task]
+    bool HasItem()
+    {
+        return fuzzySystem.hasProduct;
+    }
+
+    [Task]
+    bool HasNotItem()
+    {
+        return !fuzzySystem.hasProduct;
+    }
+
+
+
+    [Task]
+    void FleeToExit()
+    {
+        agent.SetDestination(exitPoint.position);
+        agent.speed = 10f; 
+
+        if (Vector3.Distance(transform.position, exitPoint.position) <= arrivalDistance)
         {
-            Task.current.Succeed();
-            return true;
-        }
-        Task.current.Fail();
-        return false;
-    }
-
-    [Task]
-    void Flee() //Checar
-    {
-        Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
-        Vector3 fleeTarget = transform.position + directionAwayFromPlayer * 5f; // Flee 5 units away
-        agent.SetDestination(fleeTarget);
-        Task.current.Succeed();
-    }
-
-
-    [Task]
-    bool HasStolenItem()
-    {
-        // Implement logic to check if the thief has a stolen item
-        // For now, let's assume it always returns true for demonstration purposes
-        return true;
-    }
-
-    [Task]
-    void MoveToExit()
-    {
-        // Implement logic to move the thief towards the exit
-        // For now, let's assume the exit is at a fixed position (e.g., (0, 0, 0))
-        Vector3 exitPosition = new Vector3(0, 0, 0);
-        agent.SetDestination(exitPosition);
-        Task.current.Succeed();
-    }
-
-    [Task]
-    void FindProduct()
-    {
-        // Implement logic to find a product in the store
-        // For now, let's assume the product is at a fixed position (e.g., (5, 0, 5))
-        Vector3 productPosition = new Vector3(5, 0, 5);
-        agent.SetDestination(productPosition);
-        Task.current.Succeed();
-    }
-
-    [Task]
-    void StealProduct()
-    {
-        // Implement logic to steal the product
-        // For now, let's assume the thief successfully steals the product
-        Task.current.Succeed();
-    }
-
-    [Task]
-    void ChoosePatrolPoint()
-    {
-        patrolPoint = transform.position + new Vector3(Random.Range(-patrolRange, patrolRange), 0,
-        Random.Range(-patrolRange, patrolRange));
-
-        hasPatrolPoint = true;
-
-        Task.current.Succeed();
-    }
-
-    [Task]
-    void Patrol()
-    {
-        movement.MoveTowards(patrolPoint);
-
-        if (Vector3.Distance(transform.position, patrolPoint) < arrivalDistance)
-        {
-            hasPatrolPoint = false;
+            ui.CalculateItemPoints(addPoints);
+            Destroy(gameObject);
             Task.current.Succeed();
         }
+    }
+
+    [Task]
+    void Escape()
+    {
+        agent.SetDestination(exitPoint.position);
+        agent.speed = 3.5f;
+
+        if (Vector3.Distance(transform.position, exitPoint.position) <= arrivalDistance)
+        {
+            ui.CalculateItemPoints(removePoints);
+            Destroy(gameObject);
+            Task.current.Succeed();
+        }
+    }
+
+    [Task]
+    void Hide()
+    {
+        agent.SetDestination(hideSpot.position);
+        agent.speed = 3.5f;
+
+        if (Vector3.Distance(transform.position, hideSpot.position) <= arrivalDistance)
+        {
+            Task.current.Succeed();
+        }
+    }
+
+    [Task]
+    void Steal()
+    {
+        agent.SetDestination(productPoint.position);
+        agent.speed = 3.5f;
+
+        if (Vector3.Distance(transform.position, productPoint.position) <= arrivalDistance)
+        {
+            fuzzySystem.hasProduct = true; 
+            Task.current.Succeed();
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, panicDistance);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, arrivalDistance);
     }
 
 
