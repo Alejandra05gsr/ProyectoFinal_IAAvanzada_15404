@@ -13,10 +13,9 @@ GameObject:
   - component: {fileID: 8999469526912238916}
   - component: {fileID: -6785864546507654020}
   - component: {fileID: -3526806446988348811}
-  - component: {fileID: -6930068057056919579}
   m_Layer: 0
   m_Name: cream_jar_yellow
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,16 +140,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.2717788, y: 0.9347803, z: 1.3372275}
   m_Center: {x: -0.000000029802322, y: 0.46739015, z: 0}
---- !u!114 &-6930068057056919579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1067534649613379015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c694159e8fb3c34c8a110d7636b84f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemPoints
-  pointsValue: 10

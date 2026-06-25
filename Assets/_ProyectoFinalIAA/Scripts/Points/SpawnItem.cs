@@ -10,7 +10,7 @@ public class SpawnItem : MonoBehaviour
 
     [Header("Timer")]
     public float actualTime;
-    float spawnTime = 5f;
+    public float spawnTime = 5f;
     public bool canSpawn = true;
 
 
@@ -26,7 +26,7 @@ public class SpawnItem : MonoBehaviour
     void Update()
     {
        TimerSpawn();
-        SpawnItemInScene();
+       SpawnItemInScene();
 
     }
 
@@ -53,7 +53,6 @@ public class SpawnItem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && canSpawn && isInSpawnRange)
         {
-            Debug.Log("Spawn Item");
             ChooseOneItem();
             Instantiate(items[itemIndex], spawnerItem.position, Quaternion.identity);
             actualTime = 0f;

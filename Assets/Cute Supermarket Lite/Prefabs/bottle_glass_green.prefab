@@ -13,10 +13,9 @@ GameObject:
   - component: {fileID: 1588839274473502917}
   - component: {fileID: -839101447898556075}
   - component: {fileID: 2126205124614366630}
-  - component: {fileID: -7277255759813980020}
   m_Layer: 0
   m_Name: bottle_glass_green
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,16 +140,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1230854, y: 3.4532447, z: 1.1230854}
   m_Center: {x: 0, y: 1.7113016, z: 0}
---- !u!114 &-7277255759813980020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5731033002757011461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c694159e8fb3c34c8a110d7636b84f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemPoints
-  pointsValue: 10

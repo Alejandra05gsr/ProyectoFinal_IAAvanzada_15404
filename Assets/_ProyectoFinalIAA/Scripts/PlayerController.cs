@@ -4,12 +4,10 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;
 
-    public float damage = 10f;
-    //public FuzzyEnemyController sEnemy;
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
 
@@ -23,13 +21,13 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Attack();
+            StopStealing();
         }
     }
 
 
-    void Attack()
+    void StopStealing()
     {
-        //sEnemy.health -= damage;
+        Debug.Log("Player stopped stealing.");
     }
 }

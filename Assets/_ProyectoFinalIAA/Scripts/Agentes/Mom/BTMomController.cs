@@ -1,5 +1,6 @@
 using Panda;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BTMomController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class BTMomController : MonoBehaviour
     public float patrolRange = 15f;
     public float arrivalDistance = 0.5f;
     private bool hasPatrolPoint = false;
+    public NavMeshAgent agent;
 
     private MovementController movement;
 
@@ -52,7 +54,7 @@ public class BTMomController : MonoBehaviour
     [Task]
     void ChasePlayer()
     {
-        movement.MoveTowards(player.position);
+        agent.SetDestination(player.position);
         Task.current.Succeed();
     }
 
@@ -72,7 +74,7 @@ public class BTMomController : MonoBehaviour
     [Task]
     void Patrol()
     {
-        movement.MoveTowards(patrolPoint);
+        agent.SetDestination(patrolPoint);
 
         if (Vector3.Distance(transform.position, patrolPoint) < arrivalDistance)
         {

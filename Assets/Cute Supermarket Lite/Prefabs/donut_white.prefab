@@ -13,10 +13,9 @@ GameObject:
   - component: {fileID: 2102529737375766590}
   - component: {fileID: 4567270062953345252}
   - component: {fileID: -5846531909536365539}
-  - component: {fileID: -2783330832359897016}
   m_Layer: 0
   m_Name: donut_white
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,16 +140,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9379736, y: 0.33511883, z: 0.92515385}
   m_Center: {x: -0.00000029802322, y: 0.17157373, z: 0.0000012367964}
---- !u!114 &-2783330832359897016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5440950435437339773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c694159e8fb3c34c8a110d7636b84f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemPoints
-  pointsValue: 10

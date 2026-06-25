@@ -13,10 +13,9 @@ GameObject:
   - component: {fileID: 6035025192333314111}
   - component: {fileID: -8660145942583734538}
   - component: {fileID: 7208391066814042165}
-  - component: {fileID: -2335463112888761206}
   m_Layer: 0
   m_Name: bottle_yogurt_strawberry
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,16 +140,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.56687355, y: 1.631102, z: 0.5960461}
   m_Center: {x: -0.00000037252903, y: 0.815551, z: 0.0000003874302}
---- !u!114 &-2335463112888761206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1047062781074783060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c694159e8fb3c34c8a110d7636b84f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemPoints
-  pointsValue: 10

@@ -13,10 +13,9 @@ GameObject:
   - component: {fileID: 4011013980807518254}
   - component: {fileID: -5171433071795566682}
   - component: {fileID: 5785864633404501481}
-  - component: {fileID: 7441610760814670848}
   m_Layer: 0
   m_Name: chocolate
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,16 +140,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.61093605, y: 0.15020534, z: 2.384836}
   m_Center: {x: -0.0009890348, y: 0.07510267, z: 0}
---- !u!114 &7441610760814670848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4355291191733541402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c694159e8fb3c34c8a110d7636b84f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemPoints
-  pointsValue: 10

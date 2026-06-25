@@ -1,5 +1,6 @@
 using Panda;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BTKidController : MonoBehaviour
 {
@@ -8,11 +9,12 @@ public class BTKidController : MonoBehaviour
     public float detectionRange = 10f;
     public float fleeRange = 5f;
 
-    [Header("Patrol")]
+    [Header("Flee")]
     Vector3 patrolPoint;
     public float patrolRange = 15f;
     public float arrivalDistance = 0.5f;
     private bool hasPatrolPoint = false;
+    public NavMeshAgent agent;
 
     private MovementController movement;
 
@@ -41,7 +43,7 @@ public class BTKidController : MonoBehaviour
     {
         Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
         Vector3 fleeTarget = transform.position + directionAwayFromPlayer * 5f; // Flee 5 units away
-        movement.MoveTowards(fleeTarget);
+        agent.SetDestination(fleeTarget);
         Task.current.Succeed();
     }
 

@@ -13,10 +13,9 @@ GameObject:
   - component: {fileID: 7818117518288456813}
   - component: {fileID: -2047559022400960307}
   - component: {fileID: 1164614782511640584}
-  - component: {fileID: 5040912622146190932}
   m_Layer: 0
   m_Name: bottle_small_red
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,16 +140,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.40562174, y: 1.0299187, z: 0.42649597}
   m_Center: {x: 0, y: 0.51495934, z: 0.00000028312206}
---- !u!114 &5040912622146190932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3741629357895028283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c694159e8fb3c34c8a110d7636b84f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemPoints
-  pointsValue: 10

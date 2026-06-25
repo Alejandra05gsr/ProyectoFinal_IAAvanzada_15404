@@ -5,12 +5,12 @@ public class ItemPoints : MonoBehaviour
 {
     [Header("Item Settings")]
     public int pointsValue = 10;
-    UI ui;
+    public UI ui;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -21,10 +21,10 @@ public class ItemPoints : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Box"))
+        if (collision.gameObject.CompareTag("Item"))
         {
-            //ui.UpdatePoints(pointsValue);
-            Destroy(this);
+            ui.CalculateItemPoints(pointsValue);
+            Destroy(collision.gameObject);
         }
     }
 

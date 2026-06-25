@@ -1,5 +1,6 @@
 using Panda;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BTThiefController : MonoBehaviour
 {
@@ -8,11 +9,12 @@ public class BTThiefController : MonoBehaviour
     public float detectionRange = 10f;
     public float fleeRange = 5f;
 
-    [Header("Patrol")]
+    [Header("Flee")]
     Vector3 patrolPoint;
     public float patrolRange = 15f;
     public float arrivalDistance = 0.5f;
     private bool hasPatrolPoint = false;
+    public NavMeshAgent agent;
 
     private MovementController movement;
 
@@ -41,7 +43,7 @@ public class BTThiefController : MonoBehaviour
     {
         Vector3 directionAwayFromPlayer = (transform.position - player.position).normalized;
         Vector3 fleeTarget = transform.position + directionAwayFromPlayer * 5f; // Flee 5 units away
-        movement.MoveTowards(fleeTarget);
+        agent.SetDestination(fleeTarget);
         Task.current.Succeed();
     }
 
@@ -60,7 +62,7 @@ public class BTThiefController : MonoBehaviour
         // Implement logic to move the thief towards the exit
         // For now, let's assume the exit is at a fixed position (e.g., (0, 0, 0))
         Vector3 exitPosition = new Vector3(0, 0, 0);
-        movement.MoveTowards(exitPosition);
+        agent.SetDestination(exitPosition);
         Task.current.Succeed();
     }
 
@@ -70,7 +72,7 @@ public class BTThiefController : MonoBehaviour
         // Implement logic to find a product in the store
         // For now, let's assume the product is at a fixed position (e.g., (5, 0, 5))
         Vector3 productPosition = new Vector3(5, 0, 5);
-        movement.MoveTowards(productPosition);
+        agent.SetDestination(productPosition);
         Task.current.Succeed();
     }
 

@@ -13,10 +13,9 @@ GameObject:
   - component: {fileID: 1724934495925693929}
   - component: {fileID: -8832870543022424528}
   - component: {fileID: -8617856789987362815}
-  - component: {fileID: 5049592712637965205}
   m_Layer: 0
   m_Name: roll_toilet
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,16 +140,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.8607643, y: 1.5415074, z: 1.8607643}
   m_Center: {x: 0.000000029802322, y: 0.7707537, z: 0.0000019073486}
---- !u!114 &5049592712637965205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2580249621097652999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c694159e8fb3c34c8a110d7636b84f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemPoints
-  pointsValue: 10
