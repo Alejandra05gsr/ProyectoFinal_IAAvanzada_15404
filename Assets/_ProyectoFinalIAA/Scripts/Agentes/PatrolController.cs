@@ -9,11 +9,12 @@ public class PatrolController : MonoBehaviour
     int currentPatrolIndex = 0;
 
     public NavMeshAgent agent;
+    public bool canPatrol = true;
 
 
     void Start()
     {
-        Patrol();
+        canPatrol = false;
     }
 
     // Update is called once per frame
@@ -30,8 +31,13 @@ public class PatrolController : MonoBehaviour
 
 
 
-    void Patrol()
+    public void Patrol()
     {
+        if (!canPatrol)
+        {
+            return;
+        }
+
         agent.SetDestination(patrolPoints[currentPatrolIndex].position);
         float distance = Vector3.Distance(transform.position, patrolPoints[currentPatrolIndex].position);
 

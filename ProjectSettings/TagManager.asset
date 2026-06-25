@@ -7,6 +7,8 @@ TagManager:
   - Box
   - SpawnRange
   - Item
+  - Cobertura
+  - CalmZone
   layers:
   - Default
   - TransparentFX

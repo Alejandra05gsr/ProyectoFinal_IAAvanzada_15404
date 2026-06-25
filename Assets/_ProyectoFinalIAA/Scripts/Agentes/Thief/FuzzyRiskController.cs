@@ -14,6 +14,7 @@ public class FuzzyRiskController : MonoBehaviour
     void Start()
     {
         hasProduct = false;
+        Debug.Log("Has Item: " + hasProduct);
     }
 
     // Update is called once per frame
@@ -45,15 +46,15 @@ public class FuzzyRiskController : MonoBehaviour
         float escape = ruleEscape;
 
 
-        if (escape > steal && escape > hide)
+        if (escape > steal && escape > hide && hasProduct)
         {
             currentDecision = ThiefDecision.Escape;
         }
-        else if (hide > steal)
+        else if (hide > steal && !hasProduct)
         {
             currentDecision = ThiefDecision.Hide;
         }
-        else
+        else if(!hasProduct)
         {
             currentDecision = ThiefDecision.Steal;
         }

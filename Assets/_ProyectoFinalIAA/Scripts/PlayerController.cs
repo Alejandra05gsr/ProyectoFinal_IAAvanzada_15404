@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;
     public bool canMove = true;
-
+    public float rotationSpeed = 8f;
 
     void Start()
     {
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void StopStealing()
+    void CalmKid()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -50,21 +50,38 @@ public class PlayerController : MonoBehaviour
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        Plane groundPlane = new Plane(Vector3.up, transform.position);
 
         float distance;
 
         if (groundPlane.Raycast(ray, out distance))
         {
-            Vector3 mouseWorldPos = ray.GetPoint(distance);
+            Vector3 mousePosition = ray.GetPoint(distance);
 
-            if (mouseWorldPos.x > transform.position.x)
+            Vector3 direction = mousePosition - transform.position;
+            direction.y = 0;
+
+            if (direction.magnitude > 0.1f)
             {
-                transform.rotation = Quaternion.Euler(0, 90, 0);
+                Quaternion targetRotation =
+                    Quaternion.LookRotation(direction);
+
+                transform.rotation = Quaternion.Slerp(
+                    transform.rotation,
+                    targetRotation,
+                    rotationSpeed * Time.deltaTime);
             }
-            else
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("CalmZone"))
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                transform.rotation = Quaternion.Euler(0, -90, 0);
+                other.GetComponent<ChaosKidController>().CambiarComportamientoSleep();
+                this.GetComponent<UI>().CalculateKidPoints(5);
             }
         }
     }

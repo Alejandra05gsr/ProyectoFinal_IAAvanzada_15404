@@ -4,21 +4,22 @@ using UnityEngine.AI;
 
 public class BTThiefController : MonoBehaviour
 {
-    
+    [Header("Components")]
     public NavMeshAgent agent;
     public FuzzyRiskController fuzzySystem;
+    public EvaluateTerrain evaluateTerrain;
     public UI ui;
+    public GameObject itemStolen;
 
     [Header("Transforms")]
     public Transform player;
     public Transform exitPoint;
-    public Transform hideSpot;
-    public Transform productPoint;
 
-
+    [Header("Distance")]
     public float panicDistance = 3.5f; 
     public float arrivalDistance = 1.0f;
 
+    [Header("Points")]
     public int removePoints = -10; 
     public int addPoints = 10; 
 
@@ -66,12 +67,13 @@ public class BTThiefController : MonoBehaviour
     [Task]
     void FleeToExit()
     {
+        itemStolen.SetActive(false);
         agent.SetDestination(exitPoint.position);
         agent.speed = 10f; 
 
         if (Vector3.Distance(transform.position, exitPoint.position) <= arrivalDistance)
         {
-            ui.CalculateItemPoints(addPoints);
+            ui.CalculateThiefPoints(addPoints);
             Destroy(gameObject);
             Task.current.Succeed();
         }
@@ -85,7 +87,7 @@ public class BTThiefController : MonoBehaviour
 
         if (Vector3.Distance(transform.position, exitPoint.position) <= arrivalDistance)
         {
-            ui.CalculateItemPoints(removePoints);
+            ui.CalculateThiefPoints(removePoints);
             Destroy(gameObject);
             Task.current.Succeed();
         }
@@ -94,10 +96,14 @@ public class BTThiefController : MonoBehaviour
     [Task]
     void Hide()
     {
-        agent.SetDestination(hideSpot.position);
-        agent.speed = 3.5f;
+        Transform bestHidePoint = evaluateTerrain.GetBestPoint(IAEstado.Hide);
 
-        if (Vector3.Distance(transform.position, hideSpot.position) <= arrivalDistance)
+        if (bestHidePoint != null)
+        {
+            agent.SetDestination(bestHidePoint.position);
+        }
+
+        if (!agent.pathPending && agent.remainingDistance <= arrivalDistance)
         {
             Task.current.Succeed();
         }
@@ -106,12 +112,21 @@ public class BTThiefController : MonoBehaviour
     [Task]
     void Steal()
     {
-        agent.SetDestination(productPoint.position);
-        agent.speed = 3.5f;
+        Transform bestStealPoint = evaluateTerrain.GetBestPoint(IAEstado.Steal);
 
-        if (Vector3.Distance(transform.position, productPoint.position) <= arrivalDistance)
+        if (bestStealPoint != null)
         {
-            fuzzySystem.hasProduct = true; 
+            if (agent.destination != bestStealPoint.position)
+            {
+                agent.SetDestination(bestStealPoint.position);
+                agent.speed = 3.5f;
+            }
+        }
+
+        if (!agent.pathPending && agent.remainingDistance <= arrivalDistance)
+        {
+            fuzzySystem.hasProduct = true;
+            itemStolen.SetActive(true);
             Task.current.Succeed();
         }
     }

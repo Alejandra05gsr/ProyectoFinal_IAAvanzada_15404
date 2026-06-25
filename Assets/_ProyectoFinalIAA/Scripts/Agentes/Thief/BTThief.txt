@@ -13,8 +13,8 @@ tree("TFlee")
 
 tree("TEscape")
     sequence
-        ShouldEscape
         HasItem
+        ShouldEscape
         Escape
 
 tree("THide")
@@ -24,8 +24,8 @@ tree("THide")
 
 tree("TSteal")
     sequence
-        ShouldSteal
         HasNotItem
+        ShouldSteal
         Steal
 
 

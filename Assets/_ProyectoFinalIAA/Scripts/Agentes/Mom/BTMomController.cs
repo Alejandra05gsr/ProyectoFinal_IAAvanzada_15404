@@ -16,6 +16,10 @@ public class BTMomController : MonoBehaviour
 
     public NavMeshAgent agent;
 
+    public int removePoints = -30;
+    public int addPoints = 10;
+
+    public UI ui;
 
 
     void Start()
@@ -42,7 +46,8 @@ public class BTMomController : MonoBehaviour
         //Hace que el jugador no se pueda mover por 5 segundos
         player.GetComponent<PlayerController>().canMove = false;
         //Se espera 5 segundos para que el jugador pueda moverse de nuevo
-        player.GetComponent<PlayerController>().Invoke("EnableMovement", paralysisDuration);
+        //player.GetComponent<PlayerController>().Invoke("EnableMovement", paralysisDuration);
+        ui.CalculateMomPoints(addPoints);
         Task.current.Succeed();
     }
 
@@ -76,7 +81,6 @@ public class BTMomController : MonoBehaviour
         agent.SetDestination(patrolPoints[currentPatrolIndex].position);
         float distance = Vector3.Distance(transform.position, patrolPoints[currentPatrolIndex].position);
 
-        //Si el agente llegó al punto de patrulla entonces se completa la tarea
         if (distance < 1.5f)
         {
             Task.current.Succeed();
