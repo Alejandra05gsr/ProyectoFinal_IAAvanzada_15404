@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 5f;
     public bool canMove = true;
     public float rotationSpeed = 8f;
+    public UI ui;
 
     void Start()
     {
@@ -74,14 +75,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("CalmZone"))
+        if (other.CompareTag("Kid"))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyUp(KeyCode.Space))
             {
-                other.GetComponent<ChaosKidController>().CambiarComportamientoSleep();
-                this.GetComponent<UI>().CalculateKidPoints(5);
+                other.GetComponent<ChaosKidController>().CambiarComportamiento();
+                ui.CalculateKidPoints(5);
             }
         }
     }

@@ -6,7 +6,6 @@ public class ChaosKidController : MonoBehaviour
     public enum KidBehaviour
     {
         Patrol,
-        Disorder,
         Sleep,
         Follow
     }
@@ -15,7 +14,7 @@ public class ChaosKidController : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public PatrolController patrolController;
-    public GameObject detenerNiño;
+
 
     [Header("Parámetros Multiagente")]
     public float separationDistance = 2f;
@@ -23,11 +22,13 @@ public class ChaosKidController : MonoBehaviour
 
     public KidBehaviour behavior = KidBehaviour.Sleep;
     public float stopDistance = 0.5f;
-    public float preferedDistance = 3f;
+    public float preferedDistance = 1.5f;
     public float speed = 3f;
 
-    public Transform targetShelf; 
-
+    private void Start()
+    {
+        behavior = (KidBehaviour)Random.Range(0, 2);
+    }
 
     void Update()
     {
@@ -35,9 +36,6 @@ public class ChaosKidController : MonoBehaviour
         {
             case KidBehaviour.Patrol:
                 PatrolBehavior();
-                break;
-            case KidBehaviour.Disorder:
-                DisorderBehavior();
                 break;
             case KidBehaviour.Follow:
                 FollowBehavior();
@@ -52,22 +50,13 @@ public class ChaosKidController : MonoBehaviour
     {
         speed = 5f;
         patrolController.canPatrol = true;
-        detenerNiño.SetActive(true);
 
     }
 
-    void DisorderBehavior()
-    {
-        //En un punto del shelf el niño desordena
-        detenerNiño.SetActive(true);
-    }
 
     void SleepBehavior()
     {
-        detenerNiño.SetActive(false);
         speed = 0f;
-        //Elegir un behaviour de manera aleatoria para ponerle al niño
-        behavior = (KidBehaviour)Random.Range(0, 4);
     }
 
     void FollowBehavior()
@@ -101,13 +90,12 @@ public class ChaosKidController : MonoBehaviour
 
         transform.position += finalDirection * speed * Time.deltaTime;
 
-        detenerNiño.SetActive(true);
-
     }
 
-     public void CambiarComportamientoSleep()
+     public void CambiarComportamiento()
      {
-         behavior = KidBehaviour.Sleep;
+        behavior = (KidBehaviour)Random.Range(0, 2);
+        Debug.Log("ChangeBehaviour" + behavior);
      }
 
 
@@ -118,7 +106,7 @@ public class ChaosKidController : MonoBehaviour
 
         foreach (Collider neighbor in neighbors)
         {
-            if (neighbor.gameObject != gameObject && neighbor.CompareTag("Enemy"))
+            if (neighbor.gameObject != gameObject && neighbor.CompareTag("Kid"))
             {
                 Vector3 away = transform.position - neighbor.transform.position;
                 float strength = Mathf.Clamp01((separationDistance - away.magnitude) / separationDistance);
@@ -129,8 +117,5 @@ public class ChaosKidController : MonoBehaviour
 
         return force;
     }
-
-
-
 
 }

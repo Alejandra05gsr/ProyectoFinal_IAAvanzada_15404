@@ -14,7 +14,7 @@ public class FuzzyRiskController : MonoBehaviour
     void Start()
     {
         hasProduct = false;
-        Debug.Log("Has Item: " + hasProduct);
+
     }
 
     // Update is called once per frame
@@ -63,15 +63,15 @@ public class FuzzyRiskController : MonoBehaviour
     //Distance al jugador
     float ClosePlayer(float distance)
     {
-        if (distance <= 4f) return 1f;
-        if (distance >= 12f) return 0f;
+        if (distance <= 15f) return 1f;
+        if (distance >= 30f) return 0f;
         return (12f - distance) / 8f;
     }
 
     float FarPlayer(float distance)
     {
-        if (distance <= 4f) return 0f;
-        if (distance >= 12f) return 1f;
+        if (distance <= 15f) return 0f;
+        if (distance >= 30f) return 1f;
         return (distance - 4f) / 8f;
     }
 
@@ -80,15 +80,15 @@ public class FuzzyRiskController : MonoBehaviour
 
     float NearExit(float distance)
     {
-        if (distance <= 5f) return 1f;
-        if (distance >= 15f) return 0f;
+        if (distance <= 15f) return 1f;
+        if (distance >= 30f) return 0f;
         return (15f - distance) / 10f;
     }
 
     float FarExit(float distance)
     {
-        if (distance <= 5f) return 0f;
-        if (distance >= 15f) return 1f;
+        if (distance <= 15f) return 0f;
+        if (distance >= 30f) return 1f;
         return (distance - 5f) / 10f;
     }
 

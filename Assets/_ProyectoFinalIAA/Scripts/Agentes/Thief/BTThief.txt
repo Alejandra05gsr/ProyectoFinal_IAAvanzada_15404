@@ -13,17 +13,21 @@ tree("TFlee")
 
 tree("TEscape")
     sequence
+        IsNotScared
         HasItem
         ShouldEscape
         Escape
 
+
 tree("THide")
     sequence
+        IsNotScared
         ShouldHide
         Hide
 
 tree("TSteal")
     sequence
+        IsNotScared
         HasNotItem
         ShouldSteal
         Steal

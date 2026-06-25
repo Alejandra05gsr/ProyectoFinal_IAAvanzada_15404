@@ -184,10 +184,11 @@ MonoBehaviour:
   evaluateTerrain: {fileID: 0}
   ui: {fileID: 0}
   itemStolen: {fileID: 0}
+  hasItemStolen: 0
   player: {fileID: 0}
   exitPoint: {fileID: 0}
-  panicDistance: 12.09
-  arrivalDistance: 2.29
+  panicDistance: 10.36
+  arrivalDistance: 1.95
   removePoints: -10
   addPoints: 10
 --- !u!114 &8624513711970840128

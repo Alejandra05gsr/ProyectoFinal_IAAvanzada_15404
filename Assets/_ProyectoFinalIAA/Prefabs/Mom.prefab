@@ -983,7 +983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BTMomController
   player: {fileID: 0}
   paralysisDuration: 5
-  detectionRange: 5.47
+  detectionRange: 5.85
   stopRange: 2.36
   patrolPoints:
   - {fileID: 0}
@@ -1017,6 +1017,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   agent: {fileID: 6940135037348339701}
+  removePoints: -30
+  addPoints: 1
+  ui: {fileID: 0}
 --- !u!114 &4681794598002524414
 MonoBehaviour:
   m_ObjectHideFlags: 0

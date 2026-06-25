@@ -9,6 +9,7 @@ TagManager:
   - Item
   - Cobertura
   - CalmZone
+  - Kid
   layers:
   - Default
   - TransparentFX

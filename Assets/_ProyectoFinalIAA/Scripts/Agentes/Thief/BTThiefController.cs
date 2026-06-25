@@ -10,6 +10,7 @@ public class BTThiefController : MonoBehaviour
     public EvaluateTerrain evaluateTerrain;
     public UI ui;
     public GameObject itemStolen;
+    public bool hasItemStolen = false;
 
     [Header("Transforms")]
     public Transform player;
@@ -29,6 +30,13 @@ public class BTThiefController : MonoBehaviour
     {
         // Pánico inmediato si el jugador está excesivamente cerca
         return Vector3.Distance(transform.position, player.position) < panicDistance;
+    }
+
+    [Task]
+    bool IsNotScared()
+    {
+        // Pánico inmediato si el jugador está lejos
+        return Vector3.Distance(transform.position, player.position) > panicDistance;
     }
 
 
@@ -59,6 +67,7 @@ public class BTThiefController : MonoBehaviour
     [Task]
     bool HasNotItem()
     {
+        //fuzzySystem.hasProduct = false;
         return !fuzzySystem.hasProduct;
     }
 
@@ -85,11 +94,15 @@ public class BTThiefController : MonoBehaviour
         agent.SetDestination(exitPoint.position);
         agent.speed = 3.5f;
 
-        if (Vector3.Distance(transform.position, exitPoint.position) <= arrivalDistance)
+        if (Vector3.Distance(transform.position, exitPoint.position) <= arrivalDistance && fuzzySystem.hasProduct)
         {
             ui.CalculateThiefPoints(removePoints);
             Destroy(gameObject);
             Task.current.Succeed();
+        }
+        else if (Vector3.Distance(transform.position, player.position) <= arrivalDistance)
+        {
+            Task.current.Fail();
         }
     }
 
@@ -103,9 +116,13 @@ public class BTThiefController : MonoBehaviour
             agent.SetDestination(bestHidePoint.position);
         }
 
-        if (!agent.pathPending && agent.remainingDistance <= arrivalDistance)
+        if (!agent.pathPending && agent.remainingDistance <= arrivalDistance && fuzzySystem.hasProduct)
         {
             Task.current.Succeed();
+        }
+        else if (Vector3.Distance(transform.position, player.position) <= arrivalDistance)
+        {
+            Task.current.Fail();
         }
     }
 
@@ -123,11 +140,15 @@ public class BTThiefController : MonoBehaviour
             }
         }
 
-        if (!agent.pathPending && agent.remainingDistance <= arrivalDistance)
+        if (!agent.pathPending && agent.remainingDistance <= arrivalDistance && !fuzzySystem.hasProduct)
         {
             fuzzySystem.hasProduct = true;
             itemStolen.SetActive(true);
             Task.current.Succeed();
+        }
+        else if (Vector3.Distance(transform.position, player.position) <= arrivalDistance)
+        {
+            Task.current.Fail();
         }
     }
 
